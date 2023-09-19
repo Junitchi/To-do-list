@@ -1,23 +1,23 @@
 import React from 'react';
 
 const TaskItem = ({ task, onDeleteTask, onToggleComplete }) => {
-  const { id, description, completed } = task;
+  const handleDeleteClick = () => {
+    onDeleteTask(task.id);
+  };
+
+  const handleToggleComplete = () => {
+    onToggleComplete(task.id);
+  };
 
   return (
-    <div className={`task-item ${completed ? 'completed' : ''}`}>
+    <div className={`task-item ${task.isComplete ? 'completed' : ''}`}>
       <input
         type="checkbox"
-        className="task-checkbox"
-        checked={completed}
-        onChange={() => onToggleComplete(id)}
+        checked={task.isComplete}
+        onChange={handleToggleComplete}
       />
-      <div className="task-description">{description}</div>
-      <button
-        className="delete-button"
-        onClick={() => onDeleteTask(id)}
-      >
-        Delete
-      </button>
+      <span>{task.text}</span>
+      <button onClick={handleDeleteClick}>Delete</button>
     </div>
   );
 };
